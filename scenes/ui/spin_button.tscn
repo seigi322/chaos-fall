@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://ercpnnxwhcsa"]
+
+[ext_resource type="Texture2D" uid="uid://2brnp4omino6" path="res://assets/background/deck.png" id="2_6t048"]
+[ext_resource type="Script" uid="uid://cr2qy1vi7ugky" path="res://scripts/ui/spin_button.gd" id="2_spin"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_20ior"]
+texture = ExtResource("2_6t048")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6t048"]
+texture = ExtResource("2_6t048")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dg64m"]
+texture = ExtResource("2_6t048")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gppdp"]
+texture = ExtResource("2_6t048")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s8t7m"]
+texture = ExtResource("2_6t048")
+
+[node name="spin" type="Button"]
+custom_minimum_size = Vector2(200, 50)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_20ior")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_6t048")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dg64m")
+theme_override_styles/hover = SubResource("StyleBoxTexture_20ior")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_gppdp")
+theme_override_styles/focus = SubResource("StyleBoxTexture_s8t7m")
+script = ExtResource("2_spin")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "SPIN"
+horizontal_alignment = 1
+vertical_alignment = 1

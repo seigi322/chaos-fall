@@ -1,0 +1,119 @@
+[gd_scene load_steps=3 format=3 uid="uid://4remb2ysq7hx"]
+
+[ext_resource type="Script" uid="uid://d0a7i4u2hr8p6" path="res://scripts/ui/grid_score_overlay.gd" id="1_script"]
+
+[sub_resource type="SystemFont" id="SystemFont_38nx2"]
+font_names = PackedStringArray("Digitany")
+subpixel_positioning = 0
+
+[node name="GridScoreOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="Row1Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 438.0
+offset_bottom = 88.0
+theme_override_colors/font_color = Color(1, 0.65, 0.25, 1)
+theme_override_colors/font_outline_color = Color(0.2, 0.1, 0, 0.8)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 64
+text = "+1000 SCORES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row2Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(1, 0.65, 0.25, 1)
+theme_override_colors/font_outline_color = Color(0.2, 0.1, 0, 0.8)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 64
+text = "+500 SCORES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row3Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(1, 0.65, 0.25, 1)
+theme_override_colors/font_outline_color = Color(0.2, 0.1, 0, 0.8)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 64
+text = "+500 SCORES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row1Content" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Row2Content" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Row3Content" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="TotalLabel" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.5
+offset_top = -60.5
+offset_right = 136.5
+offset_bottom = 60.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.8862745, 0.47843137, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.4)
+theme_override_colors/font_outline_color = Color(0.7882353, 0.29411766, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = SubResource("SystemFont_38nx2")
+theme_override_font_sizes/font_size = 100
+text = "+2000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MultiplierStepLabel" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -30.0
+offset_right = 220.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.5, 1)
+theme_override_colors/font_outline_color = Color(0.2, 0.1, 0, 0.9)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = SubResource("SystemFont_38nx2")
+theme_override_font_sizes/font_size = 42
+text = "Entropy Engine Multiplier 1.2"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://bphcmeichmle2"]
+
+[ext_resource type="Texture2D" uid="uid://2brnp4omino6" path="res://assets/background/deck.png" id="1_nts3s"]
+[ext_resource type="Script" uid="uid://c13x6ua53kurn" path="res://scripts/ui/deck_button.gd" id="2_deck_btn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vwd01"]
+texture = ExtResource("1_nts3s")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nts3s"]
+texture = ExtResource("1_nts3s")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xfd6v"]
+texture = ExtResource("1_nts3s")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g3iu8"]
+texture = ExtResource("1_nts3s")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5q67y"]
+texture = ExtResource("1_nts3s")
+
+[node name="DeckButton" type="Button"]
+custom_minimum_size = Vector2(200, 50)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_vwd01")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_nts3s")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xfd6v")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vwd01")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_g3iu8")
+theme_override_styles/focus = SubResource("StyleBoxTexture_5q67y")
+script = ExtResource("2_deck_btn")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeckLabel" type="Label" parent="CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "DECK"
+horizontal_alignment = 1
+vertical_alignment = 1

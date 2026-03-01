@@ -1,0 +1,8 @@
+[gd_resource type="Environment" format=3]
+
+[resource]
+adjustment_enabled = true
+adjustment_brightness = 0.95
+adjustment_contrast = 1.22
+adjustment_gamma = 0.92
+adjustment_saturation = 0.9

@@ -1,0 +1,118 @@
+[gd_scene load_steps=3 format=3 uid="uid://b76dnjms8lvib"]
+
+[ext_resource type="Script" uid="uid://cnibstjh0v62o" path="res://scripts/ui/capsule.gd" id="2_wisw2"]
+[ext_resource type="Texture2D" uid="uid://7yadn4f7266v" path="res://assets/hud/3.png" id="3_khufi"]
+
+[node name="Control" type="MarginContainer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -615.0
+offset_right = 615.0
+offset_bottom = 7.0
+grow_horizontal = 2
+
+[node name="CanvasLayer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="HudMargin" type="MarginContainer" parent="CanvasLayer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 24
+
+[node name="HudRow" type="HBoxContainer" parent="CanvasLayer/HudMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Capsule" type="NinePatchRect" parent="CanvasLayer/HudMargin/HudRow"]
+custom_minimum_size = Vector2(1100, 70)
+layout_mode = 2
+script = ExtResource("2_wisw2")
+
+[node name="CapsuleContent" type="HBoxContainer" parent="CanvasLayer/HudMargin/HudRow/Capsule"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -504.0
+offset_top = -25.0
+offset_right = 504.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="ChipsLabel" type="Label" parent="CanvasLayer/HudMargin/HudRow/Capsule/CapsuleContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "CHIPS: 0"
+
+[node name="SpacerChips" type="Control" parent="CanvasLayer/HudMargin/HudRow/Capsule/CapsuleContent"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="CanvasLayer/HudMargin/HudRow/Capsule/CapsuleContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "LEVEL 61"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/HudMargin/HudRow/Capsule/CapsuleContent"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="XPLabel" type="Label" parent="CanvasLayer/HudMargin/HudRow/Capsule/CapsuleContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "5,432,478 / 16,000,000"
+
+[node name="Spacer2" type="Control" parent="CanvasLayer/HudMargin/HudRow/Capsule/CapsuleContent"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="ChaosLabel" type="Label" parent="CanvasLayer/HudMargin/HudRow/Capsule/CapsuleContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "CHAOS: 0/100"
+
+[node name="Spacer4" type="Control" parent="CanvasLayer/HudMargin/HudRow/Capsule/CapsuleContent"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="LockChargesLabel" type="Label" parent="CanvasLayer/HudMargin/HudRow/Capsule/CapsuleContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "LOCKS: 2/3"
+
+[node name="Rightspacer" type="Control" parent="CanvasLayer/HudMargin/HudRow"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="OptionButton" type="Button" parent="CanvasLayer/HudMargin/HudRow"]
+layout_mode = 2
+focus_mode = 0
+flat = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HudMargin/HudRow/OptionButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionLabel" type="Label" parent="CanvasLayer/HudMargin/HudRow/OptionButton/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "OPTIONS"
+
+[node name="GearIcon" type="TextureRect" parent="CanvasLayer/HudMargin/HudRow/OptionButton/HBoxContainer"]
+custom_minimum_size = Vector2(48, 32)
+layout_mode = 2
+texture = ExtResource("3_khufi")
+expand_mode = 1
+stretch_mode = 5
+
+[connection signal="pressed" from="CanvasLayer/HudMargin/HudRow/OptionButton" to="CanvasLayer/HudMargin/HudRow/Capsule" method="_on_option_button_pressed"]

@@ -1,0 +1,194 @@
+[gd_scene load_steps=11 format=3 uid="uid://c3anpjsttq2i5"]
+
+[ext_resource type="Texture2D" uid="uid://c836hxwj20mj2" path="res://assets/cards/Card11.png" id="1_vgx4y"]
+[ext_resource type="Script" uid="uid://bairby6omk636" path="res://scripts/core/card_view.gd" id="2_cardview"]
+[ext_resource type="Texture2D" uid="uid://djxt1gvdrsvj8" path="res://assets/widgets/lock.png" id="2_lockpng"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shadow"]
+bg_color = Color(0, 0, 0, 0.4)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_highlight"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.4862745, 1, 0.54509807, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_score_highlight"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 0.9, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Shader" id="Shader_lightning"]
+code = "shader_type canvas_item;
+render_mode blend_add;
+
+uniform float intensity : hint_range(0.0, 2.0) = 1.0;
+uniform vec4 bolt_color : source_color = vec4(1.0, 0.92, 0.2, 1.0);
+uniform float speed : hint_range(0.5, 10.0) = 5.0;
+
+float hash(vec2 p) {
+	return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+float noise(vec2 p) {
+	vec2 i = floor(p);
+	vec2 f = fract(p);
+	vec2 u = f * f * (3.0 - 2.0 * f);
+	return mix(
+		mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
+		mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
+		u.y
+	);
+}
+
+void fragment() {
+	vec2 uv = UV;
+	float t = TIME * speed;
+
+	// Distance from nearest edge
+	float dx = min(uv.x, 1.0 - uv.x);
+	float dy = min(uv.y, 1.0 - uv.y);
+	float edge = min(dx, dy);
+
+	// Border glow falloff - strong at edges, fades inward
+	float glow = exp(-edge * 16.0);
+
+	// Two octaves of noise create forking bolt patterns
+	float n1 = noise(uv * 10.0 + vec2(t, -t * 0.7));
+	float n2 = noise(uv * 22.0 + vec2(-t * 1.3, t * 0.5));
+	float bolt = pow(n1 * n2, 1.5) * 6.0;
+
+	// Irregular on/off flicker (simulates arc discharge)
+	float flicker = 0.55 + 0.45 * step(0.35, fract(sin(t * 5.7) * 43.0));
+
+	// Bright flash burst every ~1.5s
+	float flash = pow(max(0.0, sin(t * 2.1)), 30.0) * 0.5;
+
+	float a = glow * (bolt * flicker + flash) * intensity;
+
+	// Hot white core fading to yellow at weaker arcs
+	vec3 col = mix(bolt_color.rgb, vec3(1.0), clamp(bolt * 0.3, 0.0, 1.0));
+
+	COLOR = vec4(col, clamp(a, 0.0, 0.85));
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lightning"]
+shader = SubResource("Shader_lightning")
+shader_parameter/intensity = 1.0
+shader_parameter/bolt_color = Color(1, 0.92, 0.2, 1)
+shader_parameter/speed = 5.0
+
+[sub_resource type="Animation" id="Animation_jjgc2"]
+resource_name = "new_animation"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1v373"]
+_data = {
+&"new_animation": SubResource("Animation_jjgc2")
+}
+
+[node name="CardView" type="Button"]
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+script = ExtResource("2_cardview")
+
+[node name="Shadow" type="PanelContainer" parent="."]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 5.0
+offset_top = 8.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_shadow")
+
+[node name="Art" type="TextureRect" parent="."]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("1_vgx4y")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="HighlightBorder" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_highlight")
+
+[node name="ScoreHighlight" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_score_highlight")
+
+[node name="LightningEffect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+color = Color(1, 1, 1, 1)
+material = SubResource("ShaderMaterial_lightning")
+
+[node name="LockIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("2_lockpng")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1v373")
+}

@@ -1,0 +1,148 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7ntamv8kuxr1"]
+
+[ext_resource type="Script" uid="uid://dd2n8ji1ktuw3" path="res://scripts/ui/current_bonus_card.gd" id="1_bonus"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ksdxn"]
+bg_color = Color(0.007843138, 0.17254902, 0.21960784, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.14509805, 0.2784314, 0.3254902, 1)
+corner_radius_top_left = 26
+corner_radius_top_right = 26
+corner_radius_bottom_right = 26
+corner_radius_bottom_left = 26
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_liex1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nl7mr"]
+bg_color = Color(0.9137255, 0.63529414, 0, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[node name="CurrentBonusCard" type="PanelContainer"]
+custom_minimum_size = Vector2(288, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_ksdxn")
+script = ExtResource("1_bonus")
+
+[node name="OuterMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 0
+
+[node name="VBox" type="VBoxContainer" parent="OuterMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TitleLabel" type="Label" parent="OuterMargin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "CURRENT BONUS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpacerTop" type="Control" parent="OuterMargin/VBox"]
+layout_mode = 2
+
+[node name="InnerPanel" type="PanelContainer" parent="OuterMargin/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_liex1")
+
+[node name="InnerMargin" type="MarginContainer" parent="OuterMargin/VBox/InnerPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxInner" type="VBoxContainer" parent="OuterMargin/VBox/InnerPanel/InnerMargin"]
+layout_mode = 2
+
+[node name="BonusLabelWrap" type="PanelContainer" parent="OuterMargin/VBox/InnerPanel/InnerMargin/VBoxInner"]
+clip_children = 1
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CarouselSlide" type="Control" parent="OuterMargin/VBox/InnerPanel/InnerMargin/VBoxInner/BonusLabelWrap"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BonusLabel" type="Label" parent="OuterMargin/VBox/InnerPanel/InnerMargin/VBoxInner/BonusLabelWrap/CarouselSlide"]
+layout_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "BONUS OF A KIND"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HRow" type="HBoxContainer" parent="OuterMargin/VBox/InnerPanel/InnerMargin/VBoxInner"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Row1Pill" type="PanelContainer" parent="OuterMargin/VBox/InnerPanel/InnerMargin/VBoxInner/HRow"]
+custom_minimum_size = Vector2(56, 42)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nl7mr")
+
+[node name="Row1Label" type="Label" parent="OuterMargin/VBox/InnerPanel/InnerMargin/VBoxInner/HRow/Row1Pill"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row2Pill" type="PanelContainer" parent="OuterMargin/VBox/InnerPanel/InnerMargin/VBoxInner/HRow"]
+custom_minimum_size = Vector2(56, 42)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nl7mr")
+
+[node name="Row2Label" type="Label" parent="OuterMargin/VBox/InnerPanel/InnerMargin/VBoxInner/HRow/Row2Pill"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row3Pill" type="PanelContainer" parent="OuterMargin/VBox/InnerPanel/InnerMargin/VBoxInner/HRow"]
+custom_minimum_size = Vector2(56, 42)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nl7mr")
+
+[node name="Row3Label" type="Label" parent="OuterMargin/VBox/InnerPanel/InnerMargin/VBoxInner/HRow/Row3Pill"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row4Pill" type="PanelContainer" parent="OuterMargin/VBox/InnerPanel/InnerMargin/VBoxInner/HRow"]
+visible = false
+custom_minimum_size = Vector2(56, 42)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nl7mr")
+
+[node name="Row4Label" type="Label" parent="OuterMargin/VBox/InnerPanel/InnerMargin/VBoxInner/HRow/Row4Pill"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1

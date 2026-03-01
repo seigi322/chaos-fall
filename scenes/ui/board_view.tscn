@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctckrllivyh4d"]
+
+[ext_resource type="Script" uid="uid://cwpaoi4pf26ve" path="res://scripts/ui/board_view.gd" id="1_bgpxj"]
+[ext_resource type="Texture2D" uid="uid://nivcb74msomj" path="res://assets/background/machine.png" id="2_an3ii"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_an3ii"]
+content_margin_top = 5.0
+texture = ExtResource("2_an3ii")
+expand_margin_left = 751.0
+expand_margin_top = 318.0
+expand_margin_right = 808.0
+expand_margin_bottom = 399.0
+
+[node name="BoardView" type="GridContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bgpxj")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_an3ii")
+
+[node name="Grid" type="GridContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 9
+theme_override_constants/v_separation = 20
+columns = 5

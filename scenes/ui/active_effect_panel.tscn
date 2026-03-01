@@ -1,0 +1,162 @@
+[gd_scene load_steps=7 format=3 uid="uid://fefxcsmqe0jj"]
+
+[ext_resource type="Script" uid="uid://bjtfvpmdrbu0e" path="res://scripts/ui/active_effect_panel.gd" id="1_effects"]
+[ext_resource type="Texture2D" uid="uid://buhrd16pog5o6" path="res://assets/background/effect-bg.png" id="2_irbj4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_irbj4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j7vcg"]
+texture = ExtResource("2_irbj4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bywgx"]
+texture = ExtResource("2_irbj4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a8ri1"]
+texture = ExtResource("2_irbj4")
+
+[node name="ActiveEffectPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(288, 192)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_irbj4")
+script = ExtResource("1_effects")
+
+[node name="OuterMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBox" type="VBoxContainer" parent="OuterMargin"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="OuterMargin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ACTIVE EFFECTS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChaosBarContainer" type="VBoxContainer" parent="OuterMargin/VBox"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ChaosLabel" type="Label" parent="OuterMargin/VBox/ChaosBarContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "CHAOS"
+horizontal_alignment = 1
+
+[node name="ChaosBarWrapper" type="MarginContainer" parent="OuterMargin/VBox/ChaosBarContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="ChaosBar" type="ProgressBar" parent="OuterMargin/VBox/ChaosBarContainer/ChaosBarWrapper"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+value = 10.0
+show_percentage = false
+
+[node name="ChaosValueLabel" type="Label" parent="OuterMargin/VBox/ChaosBarContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "10 / 100"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="OuterMargin/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="IconRow" type="HBoxContainer" parent="OuterMargin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="IconSlot1" type="VBoxContainer" parent="OuterMargin/VBox/IconRow"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="IconPanel1" type="PanelContainer" parent="OuterMargin/VBox/IconRow/IconSlot1"]
+custom_minimum_size = Vector2(80, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxTexture_j7vcg")
+
+[node name="IconMargin1" type="MarginContainer" parent="OuterMargin/VBox/IconRow/IconSlot1/IconPanel1"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Icon1" type="TextureRect" parent="OuterMargin/VBox/IconRow/IconSlot1/IconPanel1/IconMargin1"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label1" type="Label" parent="OuterMargin/VBox/IconRow/IconSlot1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+
+[node name="IconSlot2" type="VBoxContainer" parent="OuterMargin/VBox/IconRow"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 4
+
+[node name="IconPanel2" type="PanelContainer" parent="OuterMargin/VBox/IconRow/IconSlot2"]
+custom_minimum_size = Vector2(80, 96)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_bywgx")
+
+[node name="IconMargin2" type="MarginContainer" parent="OuterMargin/VBox/IconRow/IconSlot2/IconPanel2"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Icon2" type="TextureRect" parent="OuterMargin/VBox/IconRow/IconSlot2/IconPanel2/IconMargin2"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label2" type="Label" parent="OuterMargin/VBox/IconRow/IconSlot2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+
+[node name="IconSlot3" type="VBoxContainer" parent="OuterMargin/VBox/IconRow"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="IconPanel3" type="PanelContainer" parent="OuterMargin/VBox/IconRow/IconSlot3"]
+custom_minimum_size = Vector2(80, 96)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_a8ri1")
+
+[node name="IconMargin3" type="MarginContainer" parent="OuterMargin/VBox/IconRow/IconSlot3/IconPanel3"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Icon3" type="TextureRect" parent="OuterMargin/VBox/IconRow/IconSlot3/IconPanel3/IconMargin3"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label3" type="Label" parent="OuterMargin/VBox/IconRow/IconSlot3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1

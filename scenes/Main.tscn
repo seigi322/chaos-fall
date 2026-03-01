@@ -1,0 +1,411 @@
+[gd_scene load_steps=31 format=3 uid="uid://dowktvw3440rb"]
+
+[ext_resource type="PackedScene" uid="uid://ctckrllivyh4d" path="res://scenes/ui/board_view.tscn" id="1_elqb8"]
+[ext_resource type="Texture2D" uid="uid://g2sv7kivrisc" path="res://assets/background/bg.png" id="2_bg"]
+[ext_resource type="PackedScene" uid="uid://ercpnnxwhcsa" path="res://scenes/ui/spin_button.tscn" id="3_0bbpv"]
+[ext_resource type="PackedScene" uid="uid://b76dnjms8lvib" path="res://scenes/ui/HudBar.tscn" id="4_rarhs"]
+[ext_resource type="PackedScene" uid="uid://b7ntamv8kuxr1" path="res://scenes/ui/current_bonus_card.tscn" id="4_vcsgt"]
+[ext_resource type="PackedScene" uid="uid://fefxcsmqe0jj" path="res://scenes/ui/active_effect_panel.tscn" id="5_vcsgt"]
+[ext_resource type="PackedScene" uid="uid://bphcmeichmle2" path="res://scenes/ui/deck_button.tscn" id="6_c01mt"]
+[ext_resource type="Script" uid="uid://8kg8pdv435ty" path="res://scripts/core/game.gd" id="7_game"]
+[ext_resource type="Script" uid="uid://dvblssk7ngnpd" path="res://scripts/ui/main_ui.gd" id="8_main_ui"]
+[ext_resource type="Script" uid="uid://bjtfvpmdrbu0e" path="res://scripts/ui/active_effect_panel.gd" id="8_qmy6f"]
+[ext_resource type="PackedScene" uid="uid://xo7nhie1sce6" path="res://scenes/ui/spin_breakdown_panel.tscn" id="9_breakdown"]
+[ext_resource type="Texture2D" uid="uid://mibbivnbijrl" path="res://assets/background/bar1.png" id="9_qmy6f"]
+[ext_resource type="Texture2D" uid="uid://dvi4hhoglsuba" path="res://assets/background/bar2.png" id="10_mwfav"]
+[ext_resource type="Texture2D" uid="uid://e8myi7rnhsof" path="res://assets/background/devider.png" id="14_ft6cd"]
+[ext_resource type="Texture2D" uid="uid://bl00syoypkdii" path="res://assets/widgets/crack.png" id="14_mwfav"]
+[ext_resource type="Script" uid="uid://cm2slfvm86nng" path="res://scripts/ui/score_effects_layer.gd" id="15_layer"]
+[ext_resource type="Texture2D" uid="uid://c74vft8dxp20y" path="res://assets/background/Panel.png" id="16_panel"]
+[ext_resource type="Script" uid="uid://u0fsqswdpipr" path="res://scripts/ui/math_expression_label.gd" id="17_math"]
+[ext_resource type="PackedScene" uid="uid://dt8emjopnf638" path="res://scenes/ui/score_breakdown_block.tscn" id="18_breakdown_block"]
+[ext_resource type="Environment" path="res://assets/environment_contrast.tres" id="env_contrast"]
+[ext_resource type="PackedScene" uid="uid://b63v1hhuaf4ul" path="res://scenes/ui/spin_lever.tscn" id="lever_scene"]
+[ext_resource type="AudioStream" uid="uid://d1x0v5v4nqjqi" path="res://assets/track/RazvanSketch1.wav" id="music_track"]
+[ext_resource type="Shader" uid="uid://duq7nwr7arp27" path="res://assets/shaders/sharpen.gdshader" id="shader_sharpen"]
+[ext_resource type="Texture2D" uid="uid://djjvvkdwesi8s" path="res://assets/particles/star.png" id="spark_tex"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qmy6f"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_spark"]
+direction = Vector3(0, 1, 0)
+spread = 55.0
+initial_velocity_min = 80.0
+initial_velocity_max = 160.0
+gravity = Vector3(0, -40, 0)
+scale_min = 0.1
+scale_max = 0.2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel"]
+texture = ExtResource("16_panel")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mwfav"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3p2gp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sharpen"]
+shader = ExtResource("shader_sharpen")
+shader_parameter/strength = 0.1
+shader_parameter/blacks = 0.8
+shader_parameter/grain = 0.04
+shader_parameter/vignette = 0.15
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_main_ui")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("env_contrast")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("music_track")
+volume_db = -20.0
+autoplay = true
+
+[node name="BgImage" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+
+[node name="ChaosOverlay" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.055, 0.549, 0.467, 0.7)
+
+[node name="CracksOverlay" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Crack3Layer" type="TextureRect" parent="CracksOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("14_mwfav")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Game" type="Node" parent="."]
+script = ExtResource("7_game")
+
+[node name="SafeRoot" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScreenPadding" type="MarginContainer" parent="SafeRoot"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 9
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeRoot/ScreenPadding"]
+layout_mode = 2
+
+[node name="Spacer2" type="Control" parent="SafeRoot/ScreenPadding/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="TopBar" parent="SafeRoot/ScreenPadding/VBoxContainer" instance=ExtResource("4_rarhs")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BreakdownPanel" parent="SafeRoot/ScreenPadding/VBoxContainer" instance=ExtResource("9_breakdown")]
+visible = false
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Spacer" type="Control" parent="SafeRoot/ScreenPadding/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Row" type="HBoxContainer" parent="SafeRoot/ScreenPadding/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="CenterColumn" type="VBoxContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="BoardWrap" type="CenterContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/CenterColumn"]
+custom_minimum_size = Vector2(0, 500)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="BoardAspect" type="AspectRatioContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/CenterColumn/BoardWrap"]
+layout_mode = 2
+ratio = 1.25
+
+[node name="BoardMargin" type="MarginContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/CenterColumn/BoardWrap/BoardAspect"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
+
+[node name="BoardView" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/CenterColumn/BoardWrap/BoardAspect/BoardMargin" instance=ExtResource("1_elqb8")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+
+[node name="BottomBarWrap" type="MarginContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/CenterColumn"]
+layout_mode = 2
+theme_override_constants/margin_left = 529
+theme_override_constants/margin_top = 96
+
+[node name="BottomBarRow" type="HBoxContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/CenterColumn/BottomBarWrap"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="SpinWrap" type="HBoxContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/CenterColumn/BottomBarWrap/BottomBarRow"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="spin" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/CenterColumn/BottomBarWrap/BottomBarRow/SpinWrap" instance=ExtResource("3_0bbpv")]
+layout_mode = 2
+
+[node name="DeckButton" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/CenterColumn/BottomBarWrap/BottomBarRow/SpinWrap" instance=ExtResource("6_c01mt")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = -29
+theme_override_constants/margin_top = 61
+theme_override_constants/margin_right = 110
+theme_override_constants/margin_bottom = 0
+
+[node name="ActiveEffectPanel" type="PanelContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/MarginContainer"]
+layout_direction = 1
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qmy6f")
+script = ExtResource("8_qmy6f")
+metadata/_custom_type_script = "uid://bjtfvpmdrbu0e"
+
+[node name="HBoxContainer" type="VBoxContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/MarginContainer/ActiveEffectPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/MarginContainer/ActiveEffectPanel/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "CHAOS"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/MarginContainer/ActiveEffectPanel/HBoxContainer"]
+custom_minimum_size = Vector2(67, 396)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 50.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = ExtResource("9_qmy6f")
+texture_progress = ExtResource("10_mwfav")
+
+[node name="ChaosSparkLayer" type="CanvasLayer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/MarginContainer/ActiveEffectPanel"]
+layer = 15
+
+[node name="ChaosChangeContent" type="HBoxContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/MarginContainer/ActiveEffectPanel/ChaosSparkLayer"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_top = 50.0
+offset_right = 125.0
+offset_bottom = 106.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="ChaosFX" type="Node2D" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/MarginContainer/ActiveEffectPanel/ChaosSparkLayer"]
+
+[node name="SparkBurst" type="GPUParticles2D" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/MarginContainer/ActiveEffectPanel/ChaosSparkLayer/ChaosFX"]
+emitting = false
+amount = 10
+texture = ExtResource("spark_tex")
+lifetime = 0.4
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_spark")
+
+[node name="LeverWrap" type="MarginContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = -175
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="SpinLever" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/MarginContainer/LeverWrap" instance=ExtResource("lever_scene")]
+custom_minimum_size = Vector2(40, 100)
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="RightPanelWrap" type="MarginContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row"]
+modulate = Color(1, 1, 1, 0.85)
+custom_minimum_size = Vector2(500, 800)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 50
+
+[node name="RightPanelBg" type="PanelContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/RightPanelWrap"]
+custom_minimum_size = Vector2(0, 506)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+
+[node name="RightPanel" type="VBoxContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/RightPanelWrap/RightPanelBg"]
+custom_minimum_size = Vector2(370, 0)
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="CurrentBonusCard" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/RightPanelWrap/RightPanelBg/RightPanel" instance=ExtResource("4_vcsgt")]
+custom_minimum_size = Vector2(250, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_mwfav")
+
+[node name="TextureRect" type="TextureRect" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/RightPanelWrap/RightPanelBg/RightPanel"]
+visible = false
+layout_mode = 2
+texture = ExtResource("14_ft6cd")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="ActiveEffectPanel" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/RightPanelWrap/RightPanelBg/RightPanel" instance=ExtResource("5_vcsgt")]
+custom_minimum_size = Vector2(288, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_3p2gp")
+
+[node name="TextureRect2" type="TextureRect" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/RightPanelWrap/RightPanelBg/RightPanel"]
+visible = false
+layout_mode = 2
+texture = ExtResource("14_ft6cd")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="MathExpressionPanel" type="MarginContainer" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/RightPanelWrap/RightPanelBg/RightPanel"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+script = ExtResource("17_math")
+
+[node name="MathExpressionLabel" type="Label" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/RightPanelWrap/RightPanelBg/RightPanel/MathExpressionPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "— × — = —"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ScoreBreakdownBlock" parent="SafeRoot/ScreenPadding/VBoxContainer/Row/RightPanelWrap/RightPanelBg/RightPanel" instance=ExtResource("18_breakdown_block")]
+layout_mode = 2
+
+[node name="VignetteOverlay" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.25)
+
+[node name="DarkOutsideCircleOverlay" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="ScoreEffectsLayer" type="CanvasLayer" parent="."]
+layer = 100
+script = ExtResource("15_layer")
+
+[node name="Container" type="Control" parent="ScoreEffectsLayer"]
+z_index = 50
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="InputBlocker" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 100
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SharpenLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="SharpenRect" type="ColorRect" parent="SharpenLayer"]
+material = SubResource("ShaderMaterial_sharpen")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)

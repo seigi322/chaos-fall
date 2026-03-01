@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtooltip_popup01"]
+
+[ext_resource type="Script" path="res://scripts/ui/tooltip_popup.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pill"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7, 0.7, 0.7, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.2)
+shadow_size = 2
+shadow_offset = Vector2(0, 1)
+
+[node name="TooltipPopup" type="CanvasLayer"]
+layer = 150
+script = ExtResource("1_script")
+
+[node name="Backdrop" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Pill" type="PanelContainer" parent="Backdrop"]
+layout_mode = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_pill")
+mouse_filter = 2
+
+[node name="Margin" type="MarginContainer" parent="Backdrop/Pill"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="Backdrop/Pill/Margin"]
+layout_mode = 2
+custom_minimum_size = Vector2(200, 0)
+theme_override_font_sizes/font_size = 14
+text = "Description"
+autowrap_mode = 2

@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://notification_popup"]
+
+[ext_resource type="Script" path="res://scripts/ui/notification.gd" id="1_notif"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(0.15, 0.4, 0.7, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.3, 0.6, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(0.2, 0.5, 0.85, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.4, 0.7, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_notif"]
+bg_color = Color(0.05, 0.08, 0.12, 0.98)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.2, 0.4, 0.6, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Notification" type="Control"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -156.0
+offset_right = 300.0
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_notif")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_notif")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBox/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxInner" type="VBoxContainer" parent="VBox/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="RichTextLabel" parent="VBox/PanelContainer/MarginContainer/VBoxInner"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 78)
+theme_override_font_sizes/font_size = 28
+bbcode_enabled = true
+text = "[center][b]Notification[/b][/center]"
+autowrap_mode = 3
+
+[node name="ButtonContainer" type="HBoxContainer" parent="VBox/PanelContainer/MarginContainer/VBoxInner"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 15
+
+[node name="RestartButton" type="Button" parent="VBox/PanelContainer/MarginContainer/VBoxInner/ButtonContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_font_sizes/font_size = 22
+text = "Restart"

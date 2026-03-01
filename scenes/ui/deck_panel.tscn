@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwcp1813dlw5g"]
+
+[ext_resource type="Script" uid="uid://drgbj4jc4xikf" path="res://scripts/ui/deck_panel.gd" id="1_ku5fj"]
+[ext_resource type="Texture2D" uid="uid://bh5t2xxtdiege" path="res://assets/background/deck-bg.png" id="1_wrkd6"]
+
+[node name="DeckPanel" type="CanvasLayer"]
+process_mode = 1
+layer = 50
+script = ExtResource("1_ku5fj")
+
+[node name="Backdrop" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_wrkd6")
+
+[node name="SafeRoot" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScreenPadding" type="MarginContainer" parent="SafeRoot"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 18
+
+[node name="Panel" type="PanelContainer" parent="SafeRoot/ScreenPadding"]
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="SafeRoot/ScreenPadding/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="SafeRoot/ScreenPadding/Panel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="SafeRoot/ScreenPadding/Panel/Content/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Cards in pool . Modified by Jokers and Chaos"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="SafeRoot/ScreenPadding/Panel/Content/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Close" type="Button" parent="SafeRoot/ScreenPadding/Panel/Content/Header"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+text = "X"
+
+[node name="DeckScroll" type="ScrollContainer" parent="SafeRoot/ScreenPadding/Panel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="SafeRoot/ScreenPadding/Panel/Content/DeckScroll"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 2
+
+[node name="DeckGrid" type="GridContainer" parent="SafeRoot/ScreenPadding/Panel/Content/DeckScroll/CenterContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 6
+
+[node name="Footer" type="MarginContainer" parent="SafeRoot/ScreenPadding/Panel/Content"]
+layout_mode = 2
+
+[node name="Hint" type="Label" parent="SafeRoot/ScreenPadding/Panel/Content/Footer"]
+layout_mode = 2
+text = "These cards can appear on the next spin."

@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://b63v1hhuaf4ul"]
+
+[ext_resource type="Script" uid="uid://oyg5yk7latp1" path="res://scripts/ui/spin_lever.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bt8y2acjq8p0p" path="res://assets/widgets/ball.png" id="2_ball"]
+[ext_resource type="Texture2D" uid="uid://cp6ghhi1bi31c" path="res://assets/widgets/line.png" id="3_line"]
+
+[node name="SpinLever" type="Control"]
+custom_minimum_size = Vector2(70, 280)
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 4
+script = ExtResource("1_script")
+
+[node name="LeverPivot" type="Control" parent="."]
+custom_minimum_size = Vector2(70, 280)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 70.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Line" type="TextureRect" parent="LeverPivot"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 60.0
+offset_right = 55.0
+offset_bottom = 180.0
+texture = ExtResource("3_line")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Ball" type="TextureRect" parent="LeverPivot"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 65.0
+offset_bottom = 70.0
+texture = ExtResource("2_ball")
+expand_mode = 1
+stretch_mode = 6
